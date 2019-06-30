@@ -87,5 +87,5 @@ jobs:
               docker build -t a-springboot-circleci .; \
               docker stop a-sb; \
               docker rm a-sb; \
-              docker run -p 800:8080 a-springboot-circleci --name="a-sb"; \
+              docker run -p 8001:8080 --name a-sb -d a-springboot-circleci; \
               echo $!'
