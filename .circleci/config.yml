@@ -72,8 +72,8 @@ jobs:
               nohup java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log & \
               echo $!'
 
-      - deploy-docker:
-          name: Deploy Over SSH
+      - run:
+          name: Deploy Docker Over SSH
           command: |
             # copy jar to prod server
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
