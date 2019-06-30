@@ -83,6 +83,6 @@ jobs:
             # docker process
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               dlei.ca -l root \
-              'cd ~/_daniel/a-springboot-circleci \
+              'cd ~/_daniel/a-springboot-circleci; \
               docker build -t a-springboot-circleci .; \
               echo $!'
