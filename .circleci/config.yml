@@ -30,7 +30,7 @@ jobs:
             echo 'export MY_ENV_VAR="FOO"' >> $BASH_ENV # Redirect MY_ENV_VAR into $BASH_ENV
 
       - environment:
-        MY_VAR: a-var
+          MY_VAR: a-var
 
       # Download and cache dependencies
       - restore_cache:
