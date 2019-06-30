@@ -27,10 +27,8 @@ jobs:
       - run: 
           name: "Setup custom environment variables"
           command: |
-            echo 'export MY_ENV_VAR="FOO"' >> $BASH_ENV # Redirect MY_ENV_VAR into $BASH_ENV
-
-      - environment:
-          MY_VAR: a-var
+            echo 'export MY_ENV_VAR="an env var"' >> $BASH_ENV # Redirect MY_ENV_VAR into $BASH_ENV
+            echo 'export MY_ENV_APP="a-springboot-circleci"' >> $BASH_ENV
 
       # Download and cache dependencies
       - restore_cache:
@@ -53,7 +51,6 @@ jobs:
           name: "Display custom environment variables"
           command: |
             echo '${MY_ENV_VAR}'
-            echo '${MY_VAR}'
 
       # - run: java -version
       - run: mvn clean package -DskipTests
@@ -67,12 +64,12 @@ jobs:
           command: |
             # copy jar to prod server
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-              -r ./target/a-springboot-circleci-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/app.jar
+              -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/app.jar
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./Dockerfile root@dlei.ca:/root/_daniel
             # start spring boot
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               sw.dlei.ca -l root \
               'sudo kill $(sudo lsof -t -i:8080) \
-              nohup java -jar ./_daniel/app.jar > /var/log/a-springboot-circleci.log & \
+              nohup java -jar ./_daniel/app.jar > /var/log/${MY_ENV_APP}.log & \
               echo $!'
