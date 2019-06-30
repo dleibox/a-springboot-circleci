@@ -29,6 +29,7 @@ jobs:
           command: |
             echo 'export MY_ENV_VAR="an env var"' >> $BASH_ENV # Redirect MY_ENV_VAR into $BASH_ENV
             echo 'export MY_ENV_APP="a-springboot-circleci"' >> $BASH_ENV
+            echo 'export MY_ENV_APP_CTNR="a-sb-svc"' >> $BASH_ENV
 
       # Download and cache dependencies
       - restore_cache:
@@ -75,6 +76,12 @@ jobs:
       - run:
           name: Deploy Docker Over SSH
           command: |
+            # create directories
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+              dlei.ca -l root \
+              'mkdir ~/_daniel; \
+              mkdir ~/_daniel/${MY_ENV_APP}; \
+              mkdir ~/_daniel/${MY_ENV_APP}/target'
             # copy jar to prod server
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/${MY_ENV_APP}/target
@@ -83,9 +90,9 @@ jobs:
             # docker process
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               dlei.ca -l root \
-              'cd ~/_daniel/a-springboot-circleci; \
-              docker build -t a-springboot-circleci .; \
-              docker stop a-sb; \
-              docker rm a-sb; \
-              docker run -p 8001:8080 --name a-sb -d a-springboot-circleci; \
+              'cd ~/_daniel/${MY_ENV_APP}; \
+              docker build -t ${MY_ENV_APP} .; \
+              docker stop ${MY_ENV_APP_CTNR}; \
+              docker rm ${MY_ENV_APP_CTNR}; \
+              docker run -p 8001:8080 --name ${MY_ENV_APP_CTNR} -d ${MY_ENV_APP}; \
               echo $!'

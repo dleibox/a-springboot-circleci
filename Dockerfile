@@ -7,7 +7,7 @@ MAINTAINER Daniel Lei <dleibox@gmail.com>
 # Add a volume pointing to /tmp
 VOLUME /tmp
 
-#
+# Go to work directory
 WORKDIR /home
 
 # Make port 8080 available to the world outside this container
