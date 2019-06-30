@@ -77,9 +77,9 @@ jobs:
           name: Deploy Docker Over SSH
           command: |
             # create directories
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root mkdir ~/_daniel
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root mkdir ~/_daniel/${MY_ENV_APP}
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root mkdir ~/_daniel/${MY_ENV_APP}/target
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root mkdir /root/_daniel
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root mkdir /root/_daniel/${MY_ENV_APP}
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root mkdir /root/_daniel/${MY_ENV_APP}/target
             # copy jar to prod server
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/${MY_ENV_APP}/target
