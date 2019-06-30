@@ -49,9 +49,11 @@ jobs:
       # run tests!
       # - run: mvn integration-test
 
-      - run: |
-        echo '${MY_ENV_VAR}'
-        echo '${MY_VAR}'
+      - run:
+          name: "Display custom environment variables"
+          command: |
+            echo '${MY_ENV_VAR}'
+            echo '${MY_VAR}'
 
       # - run: java -version
       - run: mvn clean package -DskipTests
