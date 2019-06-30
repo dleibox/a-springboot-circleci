@@ -51,7 +51,7 @@ jobs:
       - run:
           name: "Display custom environment variables"
           command: |
-            echo '${MY_ENV_VAR}'
+            echo ${MY_ENV_VAR}
 
       # - run: java -version
       - run: mvn clean package -DskipTests
@@ -77,11 +77,9 @@ jobs:
           name: Deploy Docker Over SSH
           command: |
             # create directories
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-              dlei.ca -l root \
-              'mkdir ~/_daniel; \
-              mkdir ~/_daniel/${MY_ENV_APP}; \
-              mkdir ~/_daniel/${MY_ENV_APP}/target'
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root mkdir ~/_daniel
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root mkdir ~/_daniel/${MY_ENV_APP}
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root mkdir ~/_daniel/${MY_ENV_APP}/target
             # copy jar to prod server
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/${MY_ENV_APP}/target
@@ -94,5 +92,5 @@ jobs:
               docker build -t ${MY_ENV_APP} .; \
               docker stop ${MY_ENV_APP_CTNR}; \
               docker rm ${MY_ENV_APP_CTNR}; \
-              docker run -p 8001:8080 --name ${MY_ENV_APP_CTNR} -d ${MY_ENV_APP}; \
+              docker run -p 800:8080 --name ${MY_ENV_APP_CTNR} -d ${MY_ENV_APP}; \
               echo $!'
