@@ -56,4 +56,6 @@ jobs:
             # start spring boot
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               sw.dlei.ca -l root \
-              'sudo kill $(sudo lsof -t -i:8080); nohup java -jar ./_daniel/a-springboot-circleci-0.0.1-SNAPSHOT.jar > /var/log/a-springboot-circleci.log &'
+              'sudo kill $(sudo lsof -t -i:8080); \
+              nohup java -jar ./_daniel/a-springboot-circleci-0.0.1-SNAPSHOT.jar > /var/log/a-springboot-circleci.log &; \
+              echo $!'
