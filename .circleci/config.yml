@@ -56,4 +56,4 @@ jobs:
             # start spring boot
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               sw.dlei.ca -l root \
-              'ls -l; java -jar a-springboot-circleci-0.0.1-SNAPSHOT.jar'
+              'java -jar ./_daniel/a-springboot-circleci-0.0.1-SNAPSHOT.jar'
