@@ -80,9 +80,9 @@ jobs:
               -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/${MY_ENV_APP}/target
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./Dockerfile root@dlei.ca:/root/_daniel/${MY_ENV_APP}
-            # start spring boot
-            # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-            #   dlei.ca -l root \
-            #   'sudo kill $(sudo lsof -t -i:8080) \
-            #   nohup java -jar ./_daniel/app.jar > /var/log/${MY_ENV_APP}.log & \
-            #   echo $!'
+            # docker process
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+              dlei.ca -l root \
+              'cd ~/_daniel/a-springboot-circleci \
+              docker build -t a-springboot-circleci . \
+              echo $!'
