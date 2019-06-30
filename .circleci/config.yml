@@ -85,4 +85,7 @@ jobs:
               dlei.ca -l root \
               'cd ~/_daniel/a-springboot-circleci; \
               docker build -t a-springboot-circleci .; \
+              docker stop a-sb; \
+              docker rm a-sb; \
+              docker run -p 800:8080 a-springboot-circleci --name="a-sb"; \
               echo $!'
