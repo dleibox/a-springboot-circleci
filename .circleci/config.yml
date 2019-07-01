@@ -80,14 +80,14 @@ jobs:
       - run:
           name: Deploy Docker Over SSH
           command: |
-            # # create directories
-            # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root [ ! -f /root/_daniel/${MY_ENV_APP}/target ] || mkdir -p /root/_daniel/${MY_ENV_APP}/target
-            # # copy jar to prod server
-            # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-            #   -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/${MY_ENV_APP}/target
-            # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-            #   -r ./Dockerfile root@dlei.ca:/root/_daniel/${MY_ENV_APP}
-            # # docker process
+            # create directories
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root mkdir -p /root/_daniel/${MY_ENV_APP}/target
+            # copy jar to prod server
+            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+              -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/${MY_ENV_APP}/target
+            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+              -r ./Dockerfile root@dlei.ca:/root/_daniel/${MY_ENV_APP}
+            # docker process
             # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root docker build -t ${MY_ENV_APP} ${MY_ENV_APP}
             # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
             #   dlei.ca -l root \
@@ -95,13 +95,14 @@ jobs:
             #   docker rm ${MY_ENV_APP_CTNR}; \
             #   docker run -p 800:8080 --name ${MY_ENV_APP_CTNR} -d ${MY_ENV_APP}; \
             #   echo $!'
+
             # create directories
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root 'bash -s' < ./postdeployment.sh ${MY_ENV_APP}
-            # copy jar to prod server
-            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-              -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/${MY_ENV_APP}/target
-            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-              -r ./Dockerfile root@dlei.ca:/root/_daniel/${MY_ENV_APP}
+            # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root 'bash -s' < ./postdeployment.sh ${MY_ENV_APP}
+            # # copy jar to prod server
+            # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+            #   -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/${MY_ENV_APP}/target
+            # scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+            #   -r ./Dockerfile root@dlei.ca:/root/_daniel/${MY_ENV_APP}
             # docker process
             # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root docker build -t ${MY_ENV_APP} ${MY_ENV_APP}
             # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
