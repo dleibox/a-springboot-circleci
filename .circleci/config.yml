@@ -73,10 +73,11 @@ jobs:
             # run as an app: java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l root dlei.ca \
               "kill \$(lsof -t -i:8080); \
-              sudo ln -s ~/_daniel/app.jar /etc/init.d/myapp; \
-              /etc/init.d/myapp start; \
+              sudo ln -s ~/_daniel/app.jar /etc/init.d/my-app; \
+              /etc/init.d/my-app start; \
               "
-            # output cat /var/log/myapp.log
+            # process ID in /var/run/my-app/my-app.pid
+            # output cat /var/log/my-app.log
 
       - deploy:
           name: Deploy Docker Over SSH
