@@ -62,7 +62,7 @@ jobs:
 
       - run:
           name: Make remote server a known host
-          command: ssh-keyscan dlei.ca >> ~/.ssh/known_hosts
+          command: ssh-keyscan -H dlei.ca >> ~/.ssh/known_hosts
 
       - deploy:
           name: Deploy Over SSH
