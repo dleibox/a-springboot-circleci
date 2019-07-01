@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ -f /root/_daniel/$1/target ]
 then
     echo "The directories are ready!"
