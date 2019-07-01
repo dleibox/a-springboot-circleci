@@ -60,6 +60,10 @@ jobs:
       # run deploy!
       - add_ssh_keys
 
+      - run:
+          name: Make remote server a known host
+          command: ssh-keyscan root@dlei.ca >> ~/.ssh/known_hosts
+
       - deploy:
           name: Deploy Over SSH
           command: |

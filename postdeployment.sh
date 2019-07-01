@@ -1,12 +1,10 @@
 #!/bin/sh
-
 if [ -f /root/_daniel/$1/target ]
 then
     echo "The directories are ready!"
 else
     mkdir -p /root/_daniel/$1/target
 fi
-
 docker build -t $1 $1
 docker stop aaa
 docker rmaaa
