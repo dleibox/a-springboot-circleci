@@ -97,4 +97,5 @@ jobs:
               docker stop ${MY_ENV_APP_CTNR} 
               docker rm ${MY_ENV_APP_CTNR} 
               docker run -p 800:8080 --name ${MY_ENV_APP_CTNR} -d ${MY_ENV_APP} 
-            EOF # !!!
+            EOF
+            # !!!
