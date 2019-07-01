@@ -70,12 +70,14 @@ jobs:
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/app.jar
             # start spring boot
-            # AID=$(ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root 'sudo lsof -t -i:8080')
-            # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l root dlei.ca sudo kill $AID >> /dev/null
+            # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l root dlei.ca \
+            #   "kill \$(lsof -t -i:8080); \
+            #   java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log \&; \
+            #   echo $!"
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l root dlei.ca \
               "kill \$(lsof -t -i:8080); \
-              java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log \&; \
-              echo $!"
+              sudo ln -s ~/_daniel/app.jar /etc/init.d/myapp; \
+              /etc/init.d/myapp start"
 
       - deploy:
           name: Deploy Docker Over SSH
