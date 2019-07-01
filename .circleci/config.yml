@@ -66,7 +66,7 @@ jobs:
       - run:
           name: Configure and restart nginx
           command: |
-            ls -l
+            ls -l ./.circleci
             # copy nginx conf to prod server
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./.circleci/nginx.conf root@dlei.ca:/etc/nginx/sites-available/api.dlei.ca
