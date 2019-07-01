@@ -70,8 +70,8 @@ jobs:
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./.circleci/nginx.conf root@dlei.ca:/etc/nginx/sites-available/api.dlei.ca
             # update and restart nginx on prod server
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null api.dlei.ca -l root \
-              'sudo ln -sf /etc/nginx/sites-available/api.dlei.ca /etc/nginx/sites-enabled/api.dlei.ca; \
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root \
+              'sudo ln -sf /etc/nginx/sites-available/api.dlei.ca /etc/nginx/sites-enabled/; \
               sudo service nginx restart'
 
       - deploy:
