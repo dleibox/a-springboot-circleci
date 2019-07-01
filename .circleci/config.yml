@@ -70,7 +70,7 @@ jobs:
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/app.jar
             # start spring boot
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root <<EOF
+            ssh -tt -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root <<EOF
               sudo kill $(sudo lsof -t -i:8080)
               nohup java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log &
               echo $!
