@@ -71,12 +71,12 @@ jobs:
               -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/app.jar
             # start spring boot
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root \
-              `echo 'hi'; \
-              whoami; \
-              AID=lsof -t -i:8080; \
-              echo $AID; \
-              sudo kill $(sudo lsof -t -i:8080); \
-              sudo nohup java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log &; \
+              `echo 'hi' && \
+              whoami && \
+              AID=lsof -t -i:8080 && \
+              echo $AID && \
+              sudo kill $(sudo lsof -t -i:8080) && \
+              sudo nohup java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log & && \
               echo $!`
 
       - deploy:
