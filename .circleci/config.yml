@@ -55,7 +55,6 @@ jobs:
 
       # - run: java -version
       - run: mvn clean package -DskipTests
-      # - run: ls -l target/a-springboot-circleci-0.0.1-SNAPSHOT.jar
 
       # run deploy!
       - add_ssh_keys
@@ -71,11 +70,11 @@ jobs:
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/app.jar
             # start spring boot
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-              dlei.ca -l root \
-              'sudo kill $(sudo lsof -t -i:8080) \
-              nohup java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log & \
-              echo $!'
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root <<EOF
+              sudo kill $(sudo lsof -t -i:8080)
+              nohup java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log &
+              echo $!
+            EOF
 
       - deploy:
           name: Deploy Docker Over SSH
