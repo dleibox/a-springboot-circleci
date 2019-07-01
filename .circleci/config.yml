@@ -94,6 +94,7 @@ jobs:
             # create directories
             pwd
             ls -l
+            cat postdeployment.sh
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root postdeployment.sh
             # copy jar to prod server
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
