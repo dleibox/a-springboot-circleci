@@ -72,6 +72,8 @@ jobs:
             # start spring boot
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root \
               `whoami;
+              AID=sudo lsof -t -i:8080;
+              echo $AID;
               sudo kill $(sudo lsof -t -i:8080);
               sudo nohup java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log &;
               echo $!`
