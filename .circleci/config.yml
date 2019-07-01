@@ -63,6 +63,19 @@ jobs:
       #     name: Make remote server a known host
       #     command: ssh-keyscan dlei.ca >> ~/.ssh/known_hosts
 
+      - run:
+          name: Configure and restart nginx
+          command: |
+            ls -l
+            # copy nginx conf to prod server
+            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+              -r ./.circleci/nginx.conf root@dlei.ca:/etc/nginx/sites-available/api.dlei.ca
+            # update and restart nginx on prod server
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null api.dlei.ca -l root \
+              'sudo rm /etc/nginx/sites-enabled/api.dlei.ca; \
+              sudo ln -s /etc/nginx/sites-available/api.dlei.ca /etc/nginx/sites-enabled/; \
+              sudo service nginx restart'
+
       - deploy:
           name: Deploy Over SSH
           command: |
@@ -103,14 +116,3 @@ jobs:
             EOF
             # !!!
 
-      - run:
-          name: Configure and restart nginx
-          command: |
-            # copy nginx conf to prod server
-            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-              -r ./.circleci/nginx.conf root@dlei.ca:/etc/nginx/sites-available/api.dlei.ca
-            # update and restart nginx on prod server
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null api.dlei.ca -l root \
-              'sudo rm /etc/nginx/sites-enabled/api.dlei.ca; \
-              sudo ln -s /etc/nginx/sites-available/api.dlei.ca /etc/nginx/sites-enabled/; \
-              sudo service nginx restart'
