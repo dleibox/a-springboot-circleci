@@ -92,8 +92,9 @@ jobs:
             #   docker run -p 800:8080 --name ${MY_ENV_APP_CTNR} -d ${MY_ENV_APP}; \
             #   echo $!'
             # create directories
+            pwd
             ls -l
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root ./postdeployment.sh
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root postdeployment.sh
             # copy jar to prod server
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./target/${MY_ENV_APP}-0.0.1-SNAPSHOT.jar root@dlei.ca:/root/_daniel/${MY_ENV_APP}/target
