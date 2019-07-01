@@ -92,6 +92,7 @@ jobs:
             #   docker run -p 800:8080 --name ${MY_ENV_APP_CTNR} -d ${MY_ENV_APP}; \
             #   echo $!'
             # create directories
+            ls -l
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root ./.circleci/postdeployment.sh
             # copy jar to prod server
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
