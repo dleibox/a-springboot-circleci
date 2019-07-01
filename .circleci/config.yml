@@ -88,13 +88,13 @@ jobs:
             scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
               -r ./Dockerfile root@dlei.ca:/root/_daniel/${MY_ENV_APP}
             # docker process
-            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root <<EOF 
+            ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root << 
                 cd ~/_daniel/${MY_ENV_APP} 
                 docker build -t ${MY_ENV_APP} .
                 docker stop ${MY_ENV_APP_CTNR} 
                 docker rm ${MY_ENV_APP_CTNR} 
                 docker run -p 800:8080 --name ${MY_ENV_APP_CTNR} -d ${MY_ENV_APP} 
-              EOF
+
             ssh dlei.ca -l root 'echo yesyesyes'
             # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root docker build -t ${MY_ENV_APP} ${MY_ENV_APP}
             # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
