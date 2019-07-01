@@ -73,8 +73,8 @@ jobs:
             # AID=$(ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null dlei.ca -l root 'sudo lsof -t -i:8080')
             # ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l root dlei.ca sudo kill $AID >> /dev/null
             ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l root dlei.ca \
-              "sudo kill \$(sudo lsof -t -i:8080); \
-              sudo nohup java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log; \
+              "kill \$(lsof -t -i:8080); \
+              nohup java -jar ~/_daniel/app.jar > /var/log/${MY_ENV_APP}.log; \
               echo $!"
 
       - deploy:
