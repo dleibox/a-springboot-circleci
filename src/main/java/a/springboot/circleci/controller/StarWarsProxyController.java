@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/api/v1/starwars")
 @CrossOrigin
-public class StarWarsWebService {
+public class StarWarsProxyController {
 	@Autowired
 	RestTemplate restTemplate;
 
